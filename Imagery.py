@@ -17,12 +17,9 @@ class Imagery(Resource):
         coordinates = validate_coordinates()
         mapURL = '{}?center={},{}&zoom=13&scale=1&size=640x320&maptype=hybrid&format=png&key={}'.format(
         c.googleMapsURL, coordinates['lat'], coordinates['lon'], c.googleKey)
-
-        print(mapURL)
         r = requests.post(mapURL)
         
-
-        file = open("satelite_image.png", "wb")
+        file = open(c.imageryFile, "wb")
         file.write(r.content)
         file.close()
 
