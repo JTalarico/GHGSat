@@ -7,3 +7,5 @@ GHGSat Challenge 2: REST API
 2. Run server
 	* `python3 api.py`
 3. Call API
+	* Imagery API
+	** `http://localhost:5000/imagery?lat=xx&lon=yy`, where xx/yy are latitude/longitude
