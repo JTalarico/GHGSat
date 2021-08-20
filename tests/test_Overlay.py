@@ -10,9 +10,9 @@ from PIL import Image, ImageChops
 def test_overlay_images():
     plume = Image.open("plume.png")
     empty_image = Image.new("RGBA", plume.size, (255, 0, 0, 0))
-    empty_image.save("tests/test_imagery.png", "PNG")
+    empty_image.save("tests/empty_image.png", "PNG")
 
-    Overlay.overlay_images("tests/test_imagery.png", c.plume_file, "tests/test_overlay.png")
+    Overlay.overlay_images("tests/empty_image.png", c.plume_file, "tests/test_overlay.png")
 
     overlay = Image.open("tests/test_overlay.png")
     expected_overlay = Image.open("tests/expected_overlay.png")

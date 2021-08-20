@@ -14,3 +14,5 @@
 		* `http://localhost:5000/imagery?lat=xx&lon=yy`, where xx/yy are latitude/longitude
 	* Overlay Endpoint
 		* `http://localhost:5000/overlay`
+4. Run Tests
+	* `python3 -m pytest tests/` 
