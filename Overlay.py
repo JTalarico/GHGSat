@@ -7,7 +7,20 @@ from PIL import Image
 
 class Overlay(Resource):
     def get(self):
-        imageryFile = Image.open(c.imageryFile)
-        plume = Image.open(c.plumeFile)
-        imageryFile.paste(plume, (0,0))
-        return send_file(imageryFile, mimetype='image/png')
+        if os.path.isfile(c.imageryFile):
+            abort
+
+        sateliteImage = Image.open(c.imageryFile)
+        plumeImage = Image.open(c.plumeFile)
+
+        sateliteImage = sateliteImage.convert("RGBA")
+        plumeImage = plumeImage.convert("RGBA")
+        plumeImage = plumeImage.resize((sateliteImage.size))
+
+        sateliteImage.paste(plumeImage, (0, 0), plumeImage)
+        sateliteImage.save(c.overlayFile,"PNG")
+
+        sateliteImage.close()
+        plumeImage.close()
+
+        return send_file(c.overlayFile, mimetype='image/png')

@@ -15,7 +15,7 @@ def validate_coordinates():
 class Imagery(Resource):
     def get(self):
         coordinates = validate_coordinates()
-        mapURL = '{}?center={},{}&zoom=13&scale=1&size=640x320&maptype=hybrid&format=png&key={}'.format(
+        mapURL = '{}?center={},{}&zoom=13&scale=1&size=614x320&maptype=hybrid&format=png&key={}'.format(
         c.googleMapsURL, coordinates['lat'], coordinates['lon'], c.googleKey)
         r = requests.post(mapURL)
         
