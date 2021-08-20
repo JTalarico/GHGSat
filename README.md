@@ -1,5 +1,5 @@
 # GHGSat
-GHGSat Challenge 2: REST API
+[GHGSat Challenge 2: REST API](https://github.com/GHGSat/tech-challenge/tree/master/webdev#challenge-2-rest-api)
 
 ## Setup
 0. Prerequisites
