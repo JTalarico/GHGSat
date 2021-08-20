@@ -12,15 +12,19 @@ def validate_coordinates():
     
     return args
 
-class Imagery(Resource):
-    def get(self):
-        coordinates = validate_coordinates()
+def save_satelite_image(coordinates, satelite_filename):
         map_url = "{}?center={},{}&zoom=13&scale=1&size=614x320&maptype=hybrid&format=png&key={}".format(
         c.google_maps_url, coordinates["lat"], coordinates["lon"], c.google_key)
         r = requests.post(map_url)
         
-        file = open(c.imagery_file, "wb")
+        file = open(satelite_filename, "wb")
         file.write(r.content)
         file.close()
+
+
+class Imagery(Resource):
+    def get(self):
+        coordinates = validate_coordinates()
+        save_satelite_image(coordinates, c.imagery_file)
 
         return send_file(c.imagery_file, mimetype="image/png")

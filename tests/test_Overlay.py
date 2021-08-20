@@ -8,15 +8,16 @@ from PIL import Image, ImageChops
 
 
 def test_overlay_images():
-    plume = Image.open("plume.png")
+    plume = Image.open("images/plume.png")
     empty_image = Image.new("RGBA", plume.size, (255, 0, 0, 0))
-    empty_image.save("tests/empty_image.png", "PNG")
+    empty_image.save("tests/images/empty_image.png", "PNG")
 
-    Overlay.overlay_images("tests/empty_image.png", c.plume_file, "tests/test_overlay.png")
+    output_file = "tests/images/output_overlay.png"
+    Overlay.overlay_images("tests/images/empty_image.png", c.plume_file, output_file)
 
-    overlay = Image.open("tests/test_overlay.png")
-    expected_overlay = Image.open("tests/expected_overlay.png")
+    output_overlay = Image.open(output_file)
+    expected_overlay = Image.open("tests/images/expected_overlay.png")
 
-    diff = ImageChops.difference(overlay, expected_overlay)
+    diff = ImageChops.difference(output_overlay, expected_overlay)
 
     assert not diff.getbbox()
