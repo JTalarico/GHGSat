@@ -10,17 +10,20 @@ class Overlay(Resource):
         if not os.path.isfile(c.imagery_file):
             return "Missing satelite file. Please call imagery endpoint first."
 
-        satelite_image = Image.open(c.imagery_file)
-        plume_image = Image.open(c.plume_file)
-
-        satelite_image = satelite_image.convert("RGBA")
-        plume_image = plume_image.convert("RGBA")
-        plume_image = plume_image.resize((satelite_image.size))
-
-        satelite_image.paste(plume_image, (0, 0), plume_image)
-        satelite_image.save(c.overlay_file,"PNG")
-
-        satelite_image.close()
-        plume_image.close()
+        overlay_images(c.imagery_file, c.plume_file, c.overlay_file)
 
         return send_file(c.overlay_file, mimetype="image/png")
+
+def overlay_images(background_filename, foreground_filename, overlay_filename):
+    background_image = Image.open(background_filename)
+    foreground_image = Image.open(foreground_filename)
+
+    background_image = background_image.convert("RGBA")
+    foreground_image = foreground_image.convert("RGBA")
+    foreground_image = foreground_image.resize((background_image.size))
+    
+    background_image.paste(foreground_image, (0, 0), foreground_image)
+    background_image.save(overlay_filename,"PNG")
+    
+    background_image.close()
+    foreground_image.close()
