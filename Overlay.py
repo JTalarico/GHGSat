@@ -1,26 +1,26 @@
-from flask_restful import reqparse, abort, Api, Resource
+from flask_restful import abort, Resource
 from flask import Flask, send_file
 import math
-import requests
 import Constants as c
 from PIL import Image
+import os
 
 class Overlay(Resource):
     def get(self):
-        if os.path.isfile(c.imageryFile):
-            abort
+        if not os.path.isfile(c.imagery_file):
+            return "Missing satelite file. Please call imagery endpoint first."
 
-        sateliteImage = Image.open(c.imageryFile)
-        plumeImage = Image.open(c.plumeFile)
+        satelite_image = Image.open(c.imagery_file)
+        plume_image = Image.open(c.plume_file)
 
-        sateliteImage = sateliteImage.convert("RGBA")
-        plumeImage = plumeImage.convert("RGBA")
-        plumeImage = plumeImage.resize((sateliteImage.size))
+        satelite_image = satelite_image.convert("RGBA")
+        plume_image = plume_image.convert("RGBA")
+        plume_image = plume_image.resize((satelite_image.size))
 
-        sateliteImage.paste(plumeImage, (0, 0), plumeImage)
-        sateliteImage.save(c.overlayFile,"PNG")
+        satelite_image.paste(plume_image, (0, 0), plume_image)
+        satelite_image.save(c.overlay_file,"PNG")
 
-        sateliteImage.close()
-        plumeImage.close()
+        satelite_image.close()
+        plume_image.close()
 
-        return send_file(c.overlayFile, mimetype='image/png')
+        return send_file(c.overlay_file, mimetype="image/png")
