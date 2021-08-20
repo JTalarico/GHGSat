@@ -1,12 +1,11 @@
-""" GHGSat Coding Assignment
-    Unit tests for overlay
- """
 import Overlay
 import pytest
 import Constants as c
 from PIL import Image, ImageChops
 
-
+""" 
+    Overlays plume on an empty images and checks if result is expected
+"""
 def test_overlay_images():
     plume = Image.open("images/plume.png")
     empty_image = Image.new("RGBA", plume.size, (255, 0, 0, 0))
