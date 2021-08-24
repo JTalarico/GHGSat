@@ -1,5 +1,5 @@
 requests==2.22.0
 Pillow==7.0.0
 Flask==2.0.1
-Flask-RESTful==0.3.9mat
+Flask-RESTful==0.3.9
 pytest==6.2.4
